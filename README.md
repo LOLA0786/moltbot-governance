@@ -15,6 +15,20 @@ This project adds:
 
 ---
 
+## 💼 PrivateVault Plans
+
+| Plan | Price | Best For |
+|------|-------|----------|
+| Free | $0 | Builders |
+| Pro | $55/mo | Startups |
+| Enterprise | $199/mo | Regulated Teams |
+
+🔓 Upgrade:
+
+- 🚀 Pro ($55): https://rzp.io/rzp/uvixGZf0  
+- 🏛 Enterprise ($199): https://rzp.io/rzp/J27x6djw
+
+
 ##   Features
 
 - Transaction-style runs
