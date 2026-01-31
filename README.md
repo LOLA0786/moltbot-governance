@@ -15,7 +15,7 @@ This project adds:
 
 ---
 
-## 🚀 Features
+##   Features
 
 - Transaction-style runs
 - Full execution logs
@@ -25,7 +25,7 @@ This project adds:
 
 ---
 
-## 📦 Install
+##   Install
 
 ```bash
 pip install moltbot-governance
@@ -37,7 +37,7 @@ agent.run("Generate report")
 💰 Pricing
 Plan	Price
 Free	₹0
-Pro	₹4,444 / month
+Pro	$55 / month
 Team	$199 / month
 Why This Exists
 Built after multiple real production failures.
@@ -46,3 +46,6 @@ Agents need control, not just prompts.
 
 License
 MIT
+Author CHANDAN GALANI
+https://www.linkedin.com/in/chandangalani/
+Team-PrivateVault
