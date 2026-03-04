@@ -1,0 +1,9 @@
+rules:
+  system.exec:
+    allow: false
+
+  payment.transfer:
+    max_amount: 10000
+
+  summarize:
+    allow: true
