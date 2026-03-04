@@ -1,37 +1,27 @@
-"""
-MoltBot Governance Plugin Entrypoint
-"""
+from privatevault_bridge import authorize
 
-import sys
-import os
+class PrivateVaultPlugin:
 
-sys.path.append(os.path.dirname(__file__))
+    def before_tool_execution(self, action):
 
-from src.wrapper import wrap_agent
+        print("\nPrivateVault Intercepted Tool Call")
 
+        allowed, reason = authorize(action)
 
-class MoltBotAgent:
+        print("Tool:", action.get("tool"))
 
-    def run(self, cmd):
-        return "Executed by MoltBot: " + cmd
+        if not allowed:
 
+            print("\n❌ BLOCKED")
+            print("Policy violation:", reason)
 
-def main():
+            return {
+                "status":"blocked",
+                "reason":reason
+            }
 
-    if len(sys.argv) < 2:
-        print("Usage: plugin.py <command>")
-        sys.exit(1)
+        print("\n✅ Allowed")
 
-    command = " ".join(sys.argv[1:])
-
-    agent = MoltBotAgent()
-
-    safe = wrap_agent(agent)
-
-    result = safe.run(command)
-
-    print(result)
-
-
-if __name__ == "__main__":
-    main()
+        return {
+            "status":"allowed"
+        }
