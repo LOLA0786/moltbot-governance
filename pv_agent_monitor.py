@@ -1,37 +1,37 @@
 import os
+import json
 import requests
 import time
 from datetime import datetime, UTC
-from privatevault_guard import authorize
 
 API = "https://www.moltbook.com/api/v1"
 TOKEN = os.getenv("MOLTBOOK_API_KEY")
 
-HEADERS = {
-    "Authorization": f"Bearer {TOKEN}"
-}
+HEADERS = {"Authorization": f"Bearer {TOKEN}"}
 
 with open("agents.txt") as f:
     agents = [x.strip() for x in f.readlines()]
+
+with open("policies/agent_policies.json") as f:
+    policies = json.load(f)
 
 seen_posts = set()
 
 print("Monitoring Moltbook agents...")
 print("Watching:", agents)
-print("-" * 60)
+print("-"*60)
 
 while True:
 
     r = requests.get(f"{API}/feed", headers=HEADERS)
     data = r.json()
-
     posts = data.get("posts", [])
 
     for post in posts:
 
         post_id = post.get("id")
         author = post.get("author", {}).get("name")
-        title = post.get("title", "")
+        title = post.get("title","")
 
         if post_id in seen_posts:
             continue
@@ -40,19 +40,15 @@ while True:
 
         if author in agents:
 
-            action = {
-                "tool": "agent.post",
-                "agent": author,
-                "content": title
-            }
+            decision = "ALLOWED"
 
-            decision = authorize(action)
+            rules = policies.get(author, [])
 
-            if "crypto" in title.lower():
-                decision = "BLOCKED"
+            for r in rules:
+                if r.lower() in title.lower():
+                    decision = "BLOCKED"
 
             ts = datetime.now(UTC).isoformat()
-
             log = f"{ts} | {author} | {title} | {decision}"
 
             print(log)

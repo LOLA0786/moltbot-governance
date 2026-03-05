@@ -9,3 +9,6 @@ mg_audit.log
 # Env
 .env
 .venv
+agents.txt
+decision_ledger.log
+monitor.log
